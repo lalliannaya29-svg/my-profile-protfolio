@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume - Fresher</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --light-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #00f2fe 100%);
+            --purple-light: rgba(102, 126, 234, 0.1);
+            --purple-medium: rgba(118, 75, 162, 0.3);
+        }
+
+        body {
+            background: var(--primary-gradient);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-section {
+            background: var(--light-gradient);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+        }
+
+        .section-card {
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            margin: 5px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+            animation: slideInLeft 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 18px);
+            background: linear-gradient(to bottom, var(--purple-medium), transparent);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .upload-area {
+            border: 2px dashed var(--purple-medium);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: var(--purple-light);
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.02);
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn-gradient {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background-image: var(--primary-gradient);
+            background-clip: border-box;
+        }
+
+        .certificate-item:hover {
+            transform: translateX(10px);
+            border-left-color: #667eea;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .shape1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .shape3 {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .progress-bar {
+            background: var(--primary-gradient);
+            height: 8px;
+            border-radius: 10px;
+            animation: progressFill 2s ease-in-out;
+        }
+
+        @keyframes progressFill {
+            from { width: 0%; }
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="container-fluid py-5">
+        <div class="row">
+            <!-- Profile Section -->
+            <div class="col-lg-4">
+                <div class="profile-section glass-card p-4 text-center position-relative">
+                    <img src="C:\Users\Lalitha hasini\Desktop\documents my personal\4.jpg" alt="Profile" class="profile-img mb-3">
+                    <h2 class="mb-1">LALITHA HASINI PRATHIPATI</h2>
+                    <p class="mb-3 opacity-75">Fresh Graduate | Software Developer</p>
+                    <p class="small opacity-75 mb-4">Passionate about creating innovative solutions and eager to start my career in software development.</p>
+                    
+                    <!-- Contact Information -->
+                    <div class="text-start">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>lalithahasini2329@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 63057 09623</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Telagana, India</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>linkedin.com/in/lalitha hasini.p</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/lalitha hasini.p</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Education Section -->
+                <div class="section-card glass-card p-4 mb-4">
+                    <h3 class="text-white mb-4"><i class="fas fa-graduation-cap me-2"></i>Education</h3>
+                    <div class="timeline-item" style="animation-delay: 0.1s;">
+                        <h5 class="text-white">Bachelor of Computer Applications</h5>
+                        <p class="text-light mb-1">Ousmania University | 2022 - 2025</p>
+                        <p class="text-light small opacity-75">CGPA: 7.4/10</p>
+                        <p class="text-light small">Relevant Coursework: Data Structures, Algorithms, Database Management, Software Engineering</p>
+                    </div>
+                    <div class="timeline-item" style="animation-delay: 0.2s;">
+                        <h5 class="text-white">Senior Secondary (12th)</h5>
+                        <p class="text-light mb-1">Sri Chaitanya Junior Kalasala| 2020 - 2022</p>
+                        <p class="text-light small opacity-75">Percentage: 64%</p>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="section-card glass-card p-4 mb-4">
+                    <h3 class="text-white mb-4"><i class="fas fa-code me-2"></i>Technical Skills</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-light mb-3">Programming Languages</h6>
+                            <div class="skills-container">
+                                <span class="skill-badge" style="animation-delay: 0.1s;">Java</span>
+                                <span class="skill-badge" style="animation-delay: 0.2s;">Python</span>
+                                <span class="skill-badge" style="animation-delay: 0.3s;">JavaScript</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-light mb-3">Technologies & Frameworks</h6>
+                            <div class="skills-container">
+                                <span class="skill-badge" style="animation-delay: 0.6s;">React</span>
+                                <span class="skill-badge" style="animation-delay: 0.7s;">Bootstrap</span>
+                                <span class="skill-badge" style="animation-delay: 0.8s;">MySQL</span>
+                                <span class="skill-badge" style="animation-delay: 0.9s;">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="section-card glass-card p-4 mb-4">
+                    <h3 class="text-white mb-4"><i class="fas fa-project-diagram me-2"></i>Projects</h3>
+                    <div class="timeline-item" style="animation-delay: 0.1s;">
+                        <h5 class="text-white">Energy Zone Gym Web Application</h5>
+                        <p class="text-light small mb-2">HTML, Bootstrap,React JS| 2025</p>
+                        <p class="text-light small opacity-75">Fitness center offering workout space and equipment for strength training and cardio.</p>
+                        <div class="mt-2">
+                            <span class="skill-badge" style="font-size: 0.8em;">HTML</span>
+                            <span class="skill-badge" style="font-size: 0.8em;">BOOTSTRAP</span>
+                            <span class="skill-badge" style="font-size: 0.8em;">REACT JS</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item" style="animation-delay: 0.2s;">
+                        <h5 class="text-white">Restaurant Management System</h5>
+                        <p class="text-light small mb-2">HTML, Bootstrap,React JS| 2024</p>
+                        <p class="text-light small opacity-75">A dine-in restaurant known for North Indian and Mughlai-style dishes, especially biryani and handi items.</p>
+                        <div class="mt-2">
+                            <span class="skill-badge" style="font-size: 0.8em;">HTML</span>
+                            <span class="skill-badge" style="font-size: 0.8em;">BOOTSTRAP</span>
+                            <span class="skill-badge" style="font-size: 0.8em;">REACT JS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Upload Section -->
+                <div class="section-card glass-card p-4 mb-4">
+                    <h3 class="text-white mb-4"><i class="fas fa-certificate me-2"></i>Certificates</h3>
+                    
+                    <!-- Upload Area -->
+                    <div class="upload-area mb-4" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt fa-3x text-secondary mb-3"></i>
+                        <h5 class="text-secondary">Upload Your Certificates</h5>
+                        <p class="text-muted small">Drag & drop your certificate files here or click to browse</p>
+                        <input type="file" id="certificateInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                        <button class="btn btn-gradient mt-3" onclick="document.getElementById('certificateInput').click()">
+                            <i class="fas fa-plus me-2"></i>Choose Files
+                        </button>
+                    </div>
+
+                    <!-- Existing Certificates -->
+                    <div id="certificatesList">
+                        <div class="certificate-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-white mb-1">Java full stack developer certificate</h6>
+                                    <p class="text-light small mb-0 opacity-75">certified from 7itech</p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-light me-2">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-light">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="certificate-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-white mb-1">python full stack developer certificate</h6>
+                                    <p class="text-light small mb-0 opacity-75">Certified From Digital Edify</p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-light me-2">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-light">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center">
+                    <button class="btn btn-gradient me-3">
+                        <i class="fas fa-download me-2"></i>Download Resume
+                    </button>
+                    <button class="btn btn-gradient">
+                        <i class="fas fa-share me-2"></i>Share Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.timeline-item, .skill-badge');
+            elements.forEach((element, index) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.animationDelay = `${index * 0.1}s`;
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Certificate upload functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const certificateInput = document.getElementById('certificateInput');
+        const certificatesList = document.getElementById('certificatesList');
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        certificateInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+                    addCertificateToList(file);
+                    // Here you would normally upload to your Java backend
+                    uploadToServer(file);
+                } else {
+                    alert('Please upload only PDF or image files.');
+                }
+            }
+        }
+
+        function addCertificateToList(file) {
+            const certificateItem = document.createElement('div');
+            certificateItem.className = 'certificate-item';
+            certificateItem.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white mb-1">${file.name}</h6>
+                        <p class="text-light small mb-0 opacity-75">Uploaded: ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-light me-2" onclick="viewCertificate('${file.name}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-light" onclick="downloadCertificate('${file.name}')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger ms-2" onclick="deleteCertificate(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            certificatesList.appendChild(certificateItem);
+        }
+
+        // Mock functions for certificate operations
+        function uploadToServer(file) {
+            // This would be your Java backend API call
+            console.log('Uploading to Java backend:', file.name);
+            
+            // Example of what the backend call might look like:
+            /*
+            const formData = new FormData();
+            formData.append('certificate', file);
+            
+            fetch('/api/certificates/upload', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Upload successful:', data);
+            })
+            .catch(error => {
+                console.error('Upload failed:', error);
+            });
+            */
+        }
+
+        function viewCertificate(filename) {
+            // This would open the certificate in a modal or new tab
+            console.log('Viewing certificate:', python);
+            alert('Certificate viewer would open here');
+        }
+
+        function downloadCertificate(filename) {
+            // This would download the certificate from the server
+            console.log('Downloading certificate:', filename);
+            alert('Download would start here');
+        }
+
+        function deleteCertificate(button) {
+            if (confirm('Are you sure you want to delete this certificate?')) {
+                button.closest('.certificate-item').remove();
+                // Here you would also call your Java backend to delete the file
+            }
+        }
+
+        // Smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

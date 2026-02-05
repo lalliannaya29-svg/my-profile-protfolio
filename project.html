@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .tech-badge {
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+        .project-image {
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #f0f2f5, #e9ecef);
+        }
+        .filter-btn {
+            margin: 5px;
+            border-radius: 25px;
+        }
+        .filter-btn.active {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+        .loading-spinner {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-code"></i> Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">My Projects</h1>
+            <p class="lead mb-4">Showcasing innovative solutions built with modern technologies</p>
+            <a href="#projects" class="btn btn-light btn-lg">View Projects</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="mb-4">Featured Projects</h2>
+                    
+                    <!-- Filter Buttons -->
+                    <div class="mb-4">
+                        <button class="btn btn-outline-primary filter-btn active" data-filter="all">All</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="web">Web Development</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="mobile">Mobile Apps</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="api">APIs</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="database">Database</button>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading projects...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-container" class="row g-4">
+                <!-- Projects will be loaded here dynamically -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button id="load-more-btn" class="btn btn-primary btn-lg" style="display: none;">
+                    <i class="fas fa-plus"></i> Load More Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h2 class="mb-4">Get In Touch</h2>
+                    <p class="lead mb-4">Interested in collaborating or learning more about my projects?</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="mailto:contact@example.com" class="btn btn-outline-primary">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="https://github.com" class="btn btn-outline-dark" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://linkedin.com" class="btn btn-outline-info" target="_blank">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 Portfolio. Built with Bootstrap & Core Java.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sample project data (this would come from your Java backend API)
+        const projectsData = [
+            {
+                id: 1,
+                title: "E-Commerce Platform",
+                description: "Full-stack e-commerce solution with user authentication, product catalog, shopping cart, and payment integration.",
+                image: "hh image.jpg",
+                technologies: ["Java", "Spring Boot", "Bootstrap", "MySQL", "REST API"],
+                category: "web",
+                github: " https://lalithahasini2329-jpg.github.io/love.github.io/",
+                demo: " https://lalithahasini2329-jpg.github.io/love.github.io/",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Task Management API",
+                description: "RESTful API for task management with CRUD operations, user roles, and JWT authentication.",
+                image: "hh image.jpg",
+                technologies: ["Core Java", "Servlets", "JDBC", "PostgreSQL", "JWT"],
+                category: "api",
+                github: " https://lalithahasini2329-jpg.github.io/handi.github.io/",
+                demo: "https://lalithahasini2329-jpg.github.io/handi.github.io/",
+                featured: true
+            },
+            {
+                id: 3,
+                title: "Student Management System",
+                description: "Web application for managing student records, grades, and course enrollment with admin panel.",
+                image: "https://via.placeholder.com/400x200/36d1dc/ffffff?text=Student+Management",
+                technologies: ["Java", "JSP", "Bootstrap", "MySQL", "Apache Tomcat"],
+                category: "web",
+                github: "https://github.com/username/student-mgmt",
+                demo: "https://demo-student.com",
+                featured: true
+            },
+            {
+                id: 4,
+                title: "Inventory Management",
+                description: "Desktop application for inventory tracking with barcode scanning and reporting features.",
+                image: "https://via.placeholder.com/400x200/f093fb/ffffff?text=Inventory+System",
+                technologies: ["Java Swing", "SQLite", "JasperReports", "Apache POI"],
+                category: "database",
+                github: "https://github.com/username/inventory",
+                demo: null,
+                featured: false
+            },
+            {
+                id: 5,
+                title: "Weather App",
+                description: "Mobile-responsive weather application with location-based forecasts and interactive maps.",
+                image: "https://via.placeholder.com/400x200/48bb78/ffffff?text=Weather+App",
+                technologies: ["Bootstrap", "JavaScript", "Java Backend", "REST API", "OpenWeather API"],
+                category: "mobile",
+                github: "https://github.com/username/weather",
+                demo: "https://demo-weather.com",
+                featured: false
+            },
+            {
+                id: 6,
+                title: "Blog Management System",
+                description: "Content management system with rich text editor, comment system, and SEO optimization.",
+                image: "https://via.placeholder.com/400x200/ed8936/ffffff?text=Blog+CMS",
+                technologies: ["Spring MVC", "Hibernate", "Bootstrap", "MySQL", "CKEditor"],
+                category: "web",
+                github: "https://github.com/username/blog-cms",
+                demo: "https://demo-blog.com",
+                featured: false
+            }
+        ];
+
+        let currentFilter = 'all';
+        let displayedProjects = 0;
+        const projectsPerPage = 3;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjects();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active filter
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentFilter = this.dataset.filter;
+                    displayedProjects = 0;
+                    document.getElementById('projects-container').innerHTML = '';
+                    loadProjects();
+                });
+            });
+
+            // Load more button
+            document.getElementById('load-more-btn').addEventListener('click', loadProjects);
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        function loadProjects() {
+            showLoading();
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const filteredProjects = getFilteredProjects();
+                const projectsToShow = filteredProjects.slice(displayedProjects, displayedProjects + projectsPerPage);
+                
+                renderProjects(projectsToShow);
+                displayedProjects += projectsToShow.length;
+                
+                // Show/hide load more button
+                const loadMoreBtn = document.getElementById('load-more-btn');
+                if (displayedProjects >= filteredProjects.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'inline-block';
+                }
+                
+                hideLoading();
+            }, 800);
+        }
+
+        function getFilteredProjects() {
+            if (currentFilter === 'all') {
+                return projectsData;
+            }
+            return projectsData.filter(project => project.category === currentFilter);
+        }
+
+        function renderProjects(projects) {
+            const container = document.getElementById('projects-container');
+            
+            projects.forEach(project => {
+                const projectCard = createProjectCard(project);
+                container.appendChild(projectCard);
+            });
+        }
+
+        function createProjectCard(project) {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6';
+            
+            const techBadges = project.technologies.map(tech => 
+                `<span class="badge bg-secondary tech-badge">${tech}</span>`
+            ).join(' ');
+            
+            const demoButton = project.demo ? 
+                `<a href="${project.demo}" class="btn btn-primary btn-sm me-2" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Demo
+                </a>` : '';
+            
+            col.innerHTML = `
+                <div class="card project-card h-100 shadow-sm">
+                    <img src="${project.image}" class="card-img-top project-image" alt="${project.title}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${project.title}</h5>
+                        <p class="card-text flex-grow-1">${project.description}</p>
+                        <div class="mb-3">
+                            ${techBadges}
+                        </div>
+                        <div class="mt-auto">
+                            ${demoButton}
+                            <a href="${project.github}" class="btn btn-outline-dark btn-sm" target="_blank">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        function showLoading() {
+            document.querySelector('.loading-spinner').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading-spinner').style.display = 'none';
+        }
+
+        // Simulate fetching data from Java backend
+        function fetchProjectsFromBackend(filter = 'all', page = 0, size = 3) {
+            // This would be an actual fetch call to your Java servlet or REST API
+            // Example: fetch('/api/projects?filter=' + filter + '&page=' + page + '&size=' + size)
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const filtered = getFilteredProjects();
+                    const start = page * size;
+                    const end = start + size;
+                    resolve({
+                        projects: filtered.slice(start, end),
+                        totalCount: filtered.length,
+                        hasMore: end < filtered.length
+                    });
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>

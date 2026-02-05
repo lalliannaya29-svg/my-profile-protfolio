@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - John Doe</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --light-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #00f2fe 100%);
+            --purple-light: rgba(102, 126, 234, 0.1);
+            --purple-medium: rgba(118, 75, 162, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section {
+            background: var(--light-gradient);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-gradient);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .interest-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .interest-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .interest-card:hover .interest-icon {
+            transform: rotateY(360deg);
+        }
+
+        .skill-progress {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .quote-section {
+            background: var(--light-gradient);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '"';
+            font-size: 8rem;
+            position: absolute;
+            top: -2rem;
+            left: 2rem;
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 5%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            left: 80%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape4 {
+            width: 120px;
+            height: 120px;
+            top: 80%;
+            left: 10%;
+            animation: float 9s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .btn-gradient {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f0f0f0 !important;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                text-align: center;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"></i>Lalitha Hasini Prathipati</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#interests">Interests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-5" style="margin-top: 80px;">
+        <!-- Hero Section -->
+        <section class="hero-section glass-card mb-5" data-aos="fade-up">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-center">
+                        <img src="C:\Users\Lalitha hasini\Desktop\documents my personal\4.jpg" alt="John Doe" class="profile-image" data-aos="zoom-out" data-aos-delay="200">
+                    </div>
+                    <div class="col-lg-8">
+                        <h1 class="display-4 fw-bold mb-3" data-aos="fade-left" data-aos-delay="300">Hello, I'm Lalitha Hasini prathipati</h1>
+                        <h3 class="mb-4 opacity-75" data-aos="fade-left" data-aos-delay="400">Fresh Graduate & Aspiring Software Developer</h3>
+                        <p class="lead mb-4" data-aos="fade-left" data-aos-delay="500">
+                            A passionate computer science graduate with a strong foundation in programming and a deep enthusiasm for creating innovative software solutions. I'm eager to start my professional journey and contribute to meaningful projects that make a difference.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="600">
+                            <a href="#contact" class="btn btn-gradient">
+                                <i class="fas fa-envelope me-2"></i>Get In Touch
+                            </a>
+                            <a href="resume.html" class="btn btn-gradient">
+                                <i class="fas fa-download me-2"></i>View Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="mb-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="4">0</div>
+                            <h5 class="text-white mt-2">Projects Completed</h5>
+                            <p class="text-light small opacity-75">Academic & Personal</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="2">0</div>
+                            <h5 class="text-white mt-2">Technologies</h5>
+                            <p class="text-light small opacity-75">Programming Languages</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="3">0</div>
+                            <h5 class="text-white mt-2">Years of Study</h5>
+                            <p class="text-light small opacity-75">Computer Application</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="85">0</div>
+                            <h5 class="text-white mt-2">CGPA %</h5>
+                            <p class="text-light small opacity-75">Academic Performance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="glass-card p-4" data-aos="fade-right">
+                            <h2 class="section-title text-white">About Me</h2>
+                            <p class="text-light mb-4">
+                                I'm a recent Computer Science graduate with a passion for technology and innovation. Throughout my academic journey, I've developed a strong foundation in programming, problem-solving, and software development methodologies.
+                            </p>
+                            <p class="text-light mb-4">
+                                My curiosity drives me to continuously learn and explore new technologies. I believe in writing clean, efficient code and creating user-friendly applications that solve real-world problems. I'm particularly interested in full-stack development and emerging technologies like AI and machine learning.
+                            </p>
+                            <p class="text-light mb-4">
+                                As a fresher, I bring fresh perspectives, enthusiasm, and a strong willingness to learn and grow. I'm looking for opportunities where I can contribute to innovative projects while developing my skills alongside experienced professionals.
+                            </p>
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h6 class="text-white mb-3"><i class="fas fa-user me-2"></i>Personal Info</h6>
+                                    <ul class="list-unstyled text-light small">
+                                        <li class="mb-2"><strong>Location:</strong> Telangana, India</li>
+                                        <li class="mb-2"><strong>Age:</strong> 22 years</li>
+                                        <li class="mb-2"><strong>Languages:</strong> Hindi, English, telugu</li>
+                                        <li class="mb-2"><strong>Availability:</strong>AFTER 2 YEARS</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-white mb-3"><i class="fas fa-graduation-cap me-2"></i>Education</h6>
+                                    <ul class="list-unstyled text-light small">
+                                        <li class="mb-2"><strong>Degree:</strong> BCA(Bachelor of Computer Applications)</li>
+                                        <li class="mb-2"><strong>University:</strong> Ousmania University</li>
+                                        <li class="mb-2"><strong>Year:</strong> 2025</li>
+                                        <li class="mb-2"><strong>CGPA:</strong> 8.5/10</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="glass-card p-4" data-aos="fade-left">
+                            <h4 class="text-white mb-4">Core Values</h4>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-lightbulb text-warning me-3"></i>
+                                    <h6 class="text-white mb-0">Innovation</h6>
+                                </div>
+                                <p class="text-light small opacity-75">Always seeking creative solutions to complex problems</p>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-users text-success me-3"></i>
+                                    <h6 class="text-white mb-0">Collaboration</h6>
+                                </div>
+                                <p class="text-light small opacity-75">Believing in the power of teamwork and shared knowledge</p>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-book text-info me-3"></i>
+                                    <h6 class="text-white mb-0">Continuous Learning</h6>
+                                </div>
+                                <p class="text-light small opacity-75">Committed to staying updated with latest technologies</p>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-heart text-danger me-3"></i>
+                                    <h6 class="text-white mb-0">Quality</h6>
+                                </div>
+                                <p class="text-light small opacity-75">Dedication to delivering excellence in every project</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="journey" class="mb-5">
+            <div class="container">
+                <h2 class="section-title text-white text-center mb-5" data-aos="fade-up">My Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+                        <h5 class="text-white">Started Programming Journey</h5>
+                        <p class="text-light mb-2"><strong>2023 - First Year</strong></p>
+                        <p class="text-light small opacity-75">
+                            Began my computer science studies and wrote my first "Hello World" program in C++. Discovered my passion for problem-solving through code.
+                        </p>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+                        <h5 class="text-white">java programming</h5>
+                        <p class="text-light mb-2"><strong>2024 - Second Year</strong></p>
+                        <p class="text-light small opacity-75">
+                            Learned HTML, CSS, and JavaScript. Built my first responsive website and fell in love with frontend development.
+                        </p>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
+                        <h5 class="text-white">python</h5>
+                        <p class="text-light mb-2"><strong>2025 - Final Year</strong></p>
+                        <p class="text-light small opacity-75">
+                            Mastered Java and Spring Boot, learned database management with MySQL,and also learned about python advanced levels. Created full-stack applications for academic projects.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-5">
+            <div class="container">
+                <h2 class="section-title text-white text-center mb-5" data-aos="fade-up">Technical Skills</h2>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="glass-card p-4" data-aos="fade-right">
+                            <h4 class="text-white mb-4">Programming Languages</h4>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">Java</span>
+                                    <span class="text-light">90%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 90%" data-width="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">JavaScript</span>
+                                    <span class="text-light">85%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 85%" data-width="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">Python</span>
+                                    <span class="text-light">80%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 80%" data-width="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">C++</span>
+                                    <span class="text-light">75%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 75%" data-width="75"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="glass-card p-4" data-aos="fade-left">
+                            <h4 class="text-white mb-4">Frameworks & Tools</h4>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">React</span>
+                                    <span class="text-light">80%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 80%" data-width="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-light">MySQL</span>
+                                    <span class="text-light">40%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 40%" data-width="40"></div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests" class="mb-5">
+            <div class="container">
+                <h2 class="section-title text-white text-center mb-5" data-aos="fade-up">Interests & Hobbies</h2>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Coding</h5>
+                            <p class="text-light small opacity-75">Love solving algorithmic problems and building applications</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Reading</h5>
+                            <p class="text-light small opacity-75">Tech blogs, sci-fi novels, and programming books</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Gaming</h5>
+                            <p class="text-light small opacity-75">Strategy games and exploring game development</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Photography</h5>
+                            <p class="text-light small opacity-75">Capturing moments and learning photo editing</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Music</h5>
+                            <p class="text-light small opacity-75">Listening to various genres while coding</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Fitness</h5>
+                            <p class="text-light small opacity-75">Regular workouts to maintain physical and mental health</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Networking</h5>
+                            <p class="text-light small opacity-75">Connecting with fellow developers and tech enthusiasts</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
+                        <div class="interest-card">
+                            <div class="interest-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h5 class="text-white mb-2">Travel</h5>
+                            <p class="text-light small opacity-75">Exploring new places and cultures</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="mb-5">
+            <div class="container">
+                <div class="quote-section" data-aos="fade-up">
+                    <h3 class="mb-4">My Philosophy</h3>
+                    <p class="lead mb-4">
+                        "Code is like humor. When you have to explain it, it's bad. I strive to write clean, self-documenting code that speaks for itself and solves real-world problems effectively."
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <div class="text-center">
+                            <h6 class="mb-0">- John Doe</h6>
+                            <small class="opacity-75">Fresh Graduate & Future Developer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Goals Section -->
+        <section class="mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="glass-card p-4 h-100" data-aos="fade-right">
+                            <h4 class="text-white mb-4"><i class="fas fa-target me-2"></i>Short-term Goals</h4>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Land My First Job</h6>
+                                        <p class="text-light small opacity-75">Secure a position as a software developer in a growth-oriented company</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Master Full-Stack Development</h6>
+                                        <p class="text-light small opacity-75">Become proficient in both frontend and backend technologies</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Learn Cloud Technologies</h6>
+                                        <p class="text-light small opacity-75">Gain expertise in AWS, Azure, or Google Cloud Platform</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Build Professional Network</h6>
+                                        <p class="text-light small opacity-75">Connect with industry professionals and mentors</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="glass-card p-4 h-100" data-aos="fade-left">
+                            <h4 class="text-white mb-4"><i class="fas fa-rocket me-2"></i>Long-term Goals</h4>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-star text-warning me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Lead Development Teams</h6>
+                                        <p class="text-light small opacity-75">Grow into a technical leadership role and mentor junior developers</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-star text-warning me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Contribute to Open Source</h6>
+                                        <p class="text-light small opacity-75">Make meaningful contributions to open source projects</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-star text-warning me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Start My Own Tech Venture</h6>
+                                        <p class="text-light small opacity-75">Launch a startup that solves real-world problems</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-star text-warning me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="text-white mb-1">Continuous Learning</h6>
+                                        <p class="text-light small opacity-75">Stay updated with emerging technologies and industry trends</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-5">
+            <div class="container">
+                <h2 class="section-title text-white text-center mb-5" data-aos="fade-up">Let's Connect</h2>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="glass-card p-4" data-aos="fade-up">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="interest-icon me-3">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1">Email</h6>
+                                            <p class="text-light small mb-0">lalithahasini2329@email.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="interest-icon me-3">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1">Phone</h6>
+                                            <p class="text-light small mb-0">+91 63057 09623</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="interest-icon me-3">
+                                            <i class="fab fa-linkedin"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1">LinkedIn</h6>
+                                            <p class="text-light small mb-0">linkedin.com/in/lalithahasinip</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="interest-icon me-3">
+                                            <i class="fab fa-github"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1">GitHub</h6>
+                                            <p class="text-light small mb-0">github.com/lalithahasinip</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <p class="text-light mb-4">Ready to discuss opportunities and collaborate on exciting projects!</p>
+                                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                    <a href="mailto:lalithahasini2329@gmail.com" class="btn btn-gradient">
+                                        <i class="fas fa-envelope me-2"></i>Send Email
+                                    </a>
+                                    <a href="tel:+916305709623" class="btn btn-gradient">
+                                        <i class="fas fa-phone me-2"></i>Call Me
+                                    </a>
+                                    <a href="https://linkedin.com/in/lalithahasinip" class="btn btn-gradient" target="_blank">
+                                        <i class="fab fa-linkedin me-2"></i>LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-4">
+            <div class="container">
+                <div class="glass-card p-3" data-aos="fade-up">
+                    <p class="text-light mb-2">&copy; 2024 John Doe. All rights reserved.</p>
+                    <p class="text-light small opacity-75">Designed with ❤️ and lots of ☕</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Animated counter for stats
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-count'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const counter = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(counter);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation when stats come into view
+        const observerOptions = {
+            threshold: 0.7,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number[data-count]');
+                    counters.forEach(counter => {
+                        if (!counter.classList.contains('animated')) {
+                            counter.classList.add('animated');
+                            animateCounter(counter);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe the stats section
+        const statsSection = document.querySelector('.stat-card').closest('section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Animate progress bars when they come into view
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress-bar[data-width]');
+                    progressBars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            const width = bar.getAttribute('data-width');
+                            bar.style.width = width + '%';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe skills section
+        const skillsSection = document.querySelector('#skills');
+        if (skillsSection) {
+            progressObserver.observe(skillsSection);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar transparency on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.05)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Add parallax effect to floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                shape.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-section h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                setTimeout(() => {
+                    typeWriter(heroTitle, originalText, 80);
+                }, 1000);
+            }
+        });
+
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.glass-card, .stat-card, .interest-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click ripple effect to buttons
+        document.querySelectorAll('.btn-gradient').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .btn-gradient {
+                position: relative;
+                overflow: hidden;
+            }
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
