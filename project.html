@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #457b9d;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --accent: #ffd166;
+            --purple: #667eea;
+            --purple-dark: #764ba2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: white;
+            padding: 150px 5% 80px;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-btn {
+            padding: 15px 35px;
+            background: white;
+            color: var(--purple);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInCard 0.6s ease forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--light) 0%, #e9ecef 100%);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .featured-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-badge {
+            background: var(--light);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-demo {
+            flex: 1;
+            padding: 12px 20px;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-demo:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-code {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-code:hover {
+            background: var(--dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            text-align: center;
+            padding: 50px;
+            display: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--light);
+            border-top-color: var(--purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 5%;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 12px 30px;
+            border: 2px solid;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-btn.email {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .contact-btn.email:hover {
+            background: #c52937;
+            transform: translateY(-3px);
+        }
+
+        .contact-btn.github {
+            background: transparent;
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        .contact-btn.github:hover {
+            background: var(--dark);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .contact-btn.linkedin {
+            background: transparent;
+            color: #0077b5;
+            border-color: #0077b5;
+        }
+
+        .contact-btn.linkedin:hover {
+            background: #0077b5;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+            color: #ccc;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+
+        .no-results i {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo"><i class="fas fa-code"></i> My Portfolio</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1><i class="fas fa-laptop-code"></i> My Projects</h1>
+        <p>Showcasing innovative solutions built with modern technologies</p>
+        <a href="#projects" class="hero-btn">
+            <i class="fas fa-arrow-down"></i> View Projects
+        </a>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterProjects('all')">
+                    <i class="fas fa-th"></i> All
+                </button>
+                <button class="filter-btn" onclick="filterProjects('web')">
+                    <i class="fas fa-globe"></i> Web Development
+                </button>
+                <button class="filter-btn" onclick="filterProjects('mobile')">
+                    <i class="fas fa-mobile-alt"></i> Mobile Apps
+                </button>
+                <button class="filter-btn" onclick="filterProjects('api')">
+                    <i class="fas fa-server"></i> APIs
+                </button>
+                <button class="filter-btn" onclick="filterProjects('database')">
+                    <i class="fas fa-database"></i> Database
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="margin-top: 20px; color: #666;">Loading projects...</p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here -->
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" style="display: none;" class="no-results">
+            <i class="fas fa-folder-open"></i>
+            <h3>No projects found</h3>
+            <p>Try selecting a different category</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+        <p>Interested in collaborating or learning more about my projects?</p>
+        <div class="contact-buttons">
+            <a href="mailto:lalithahasini@example.com" class="contact-btn email">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://github.com/lalithahasini2329-jpg" class="contact-btn github" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://linkedin.com" class="contact-btn linkedin" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Portfolio. Built with passion and modern web technologies.</p>
+    </footer>
+
+    <script>
+        // Project Data with Working Demo Links
+        const projectsData = [
+            {
+                id: 1,
+                title: "Fitness",
+                description: "Full-stack e-commerce solution with user authentication, product catalog, shopping cart, and payment integration.",
+                image: "https://images.unsplash.com/photo-1651315283944-852219dff97b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3ltJTIwd2Vic2l0ZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
+                technologies: ["Java", "Spring Boot", "Bootstrap", "MySQL", "REST API"],
+                category: "web",
+                github: "https://github.com/lalithahasini2329-jpg/ecommerce",
+                demo: "https://lalithahasini2329-jpg.github.io/love.github.io/",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Restaurant",
+                description: "Online marketplace platform for handmade crafts with seller dashboard, buyer reviews, and secure checkout system.",
+                image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Payment Gateway"],
+                category: "web",
+                github: "https://github.com/lalithahasini2329-jpg/handicraft",
+                demo: "https://lalithahasini2329-jpg.github.io/handi.github.io/",
+                featured: true
+            },
+            {
+                id: 3,
+                title: "Pet Adoption Platform",
+                description: "Web application connecting pet lovers with adoption centers, featuring pet profiles, adoption requests, and care guides.",
+                image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=500",
+                technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Forms"],
+                category: "web",
+                github: "https://github.com/lalliannaya29/petadoption",
+                demo: "https://lalliannaya29-svg.github.io/pawlove/",
+                featured: true
+            },
+            {
+                id: 4,
+                title: "Railway Food Ordering",
+                description: "Train food ordering system with QR code scanning, real-time tracking, and seamless payment integration.",
+                image: "https://images.unsplash.com/photo-1676976196995-e5a699b27385?w=500",
+                technologies: ["HTML", "CSS", "JavaScript", "QR Integration", "Payment API"],
+                category: "mobile",
+                github: "https://github.com/lalithahasini2329-jpg/railway",
+                demo: "https://lalithahasini2329-jpg.github.io/railway/",
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Task Management API",
+                description: "RESTful API for task management with CRUD operations, user roles, JWT authentication, and real-time notifications.",
+                image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500",
+                technologies: ["Core Java", "Servlets", "JDBC", "PostgreSQL", "JWT"],
+                category: "api",
+                github: "https://github.com/username/task-api",
+                demo: "https://lalithahasini2329-jpg.github.io/love.github.io/",
+                featured: true
+            },
+            {
+                id: 6,
+                title: "Student Management System",
+                description: "Comprehensive web application for managing student records, grades, attendance, course enrollment with admin panel.",
+                image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500",
+                technologies: ["Java", "JSP", "Bootstrap", "MySQL", "Apache Tomcat"],
+                category: "database",
+                github: "https://github.com/username/student-mgmt",
+                demo: "https://lalithahasini2329-jpg.github.io/handi.github.io/",
+                featured: true
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjects();
+            setupSmoothScroll();
+        });
+
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        function filterProjects(category) {
+            currentFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.filter-btn').classList.add('active');
+            
+            loadProjects();
+        }
+
+        function loadProjects() {
+            const grid = document.getElementById('projectsGrid');
+            const noResults = document.getElementById('noResults');
+            const spinner = document.getElementById('loadingSpinner');
+            
+            // Show loading
+            spinner.style.display = 'block';
+            grid.style.display = 'none';
+            noResults.style.display = 'none';
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                // Filter projects
+                let filteredProjects = projectsData;
+                if (currentFilter !== 'all') {
+                    filteredProjects = projectsData.filter(p => p.category === currentFilter);
+                }
+                
+                // Hide loading
+                spinner.style.display = 'none';
+                
+                if (filteredProjects.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+                
+                // Render projects
+                grid.innerHTML = filteredProjects.map(project => createProjectCard(project)).join('');
+                grid.style.display = 'grid';
+            }, 500);
+        }
+
+        function createProjectCard(project) {
+            const techBadges = project.technologies.map(tech => 
+                `<span class="tech-badge">${tech}</span>`
+            ).join('');
+            
+            const featuredBadge = project.featured ? 
+                '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : '';
+            
+            return `
+                <div class="project-card">
+                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">${project.title}</h3>
+                            ${featuredBadge}
+                        </div>
+                        <p class="project-description">${project.description}</p>
+                        <div class="tech-badges">
+                            ${techBadges}
+                        </div>
+                        <div class="project-actions">
+                            <a href="${project.demo}" class="btn-demo" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="${project.github}" class="btn-code" target="_blank">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
