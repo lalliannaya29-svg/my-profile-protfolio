@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentations - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-soft: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --gradient-green: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-orange: linear-gradient(135deg, #fa8231 0%, #f7b731 100%);
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-weight: 700; font-size: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .navbar-nav .nav-link {
+            font-weight: 500; margin: 0 15px; position: relative; transition: all 0.3s ease;
+        }
+        .navbar-nav .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 50%; background: var(--gradient-primary);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after { width: 100%; }
+
+        /* ── Hero Banner ── */
+        .page-hero {
+            background: var(--gradient-primary);
+            padding: 130px 0 70px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.08"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.08"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.12"/><circle cx="10" cy="70" r="0.8" fill="white" opacity="0.06"/><circle cx="90" cy="40" r="0.6" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+        @keyframes float {
+            0%   { transform: translateY(0px) rotate(0deg); }
+            50%  { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+        .page-hero h1 { font-size: 3rem; font-weight: 700; position: relative; z-index: 2; }
+        .page-hero p  { font-size: 1.2rem; opacity: .85; position: relative; z-index: 2; }
+
+        /* ── Section ── */
+        .section { padding: 70px 0; }
+        .section-title {
+            font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 3rem; position: relative;
+        }
+        .section-title::after {
+            content: ''; position: absolute; width: 50px; height: 4px;
+            background: var(--gradient-secondary); bottom: -10px; left: 50%;
+            transform: translateX(-50%); border-radius: 2px;
+        }
+
+        /* ── Filter Bar ── */
+        .filter-bar {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center; margin-bottom: 2.5rem;
+        }
+        .filter-btn {
+            padding: 8px 22px; border-radius: 50px; border: 2px solid transparent;
+            background: white; color: var(--text-light);
+            font-weight: 500; font-size: .9rem; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gradient-primary); color: white;
+            box-shadow: 0 6px 18px rgba(102,126,234,0.35);
+            transform: translateY(-2px);
+        }
+
+        /* ── Presentation Card ── */
+        .pres-card {
+            background: white; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.09);
+            overflow: hidden; transition: all 0.35s ease;
+            display: flex; flex-direction: column;
+            margin-bottom: 2rem; height: 100%;
+        }
+        .pres-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 22px 45px rgba(0,0,0,0.14);
+        }
+
+        /* slide thumbnail */
+        .pres-thumb {
+            position: relative; height: 190px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .pres-thumb .slide-bg {
+            position: absolute; inset: 0;
+        }
+        .pres-thumb .slide-icon {
+            position: relative; z-index: 2;
+            font-size: 3.2rem; color: rgba(255,255,255,0.92);
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+            transition: transform 0.3s ease;
+        }
+        .pres-card:hover .slide-icon { transform: scale(1.15) rotate(-5deg); }
+
+        .slide-count-badge {
+            position: absolute; top: 14px; right: 14px; z-index: 3;
+            background: rgba(255,255,255,0.22); backdrop-filter: blur(6px);
+            color: white; font-size: .78rem; font-weight: 600;
+            padding: 4px 11px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
+        .category-badge {
+            position: absolute; bottom: 14px; left: 14px; z-index: 3;
+            font-size: .72rem; font-weight: 700; letter-spacing: .4px;
+            padding: 4px 12px; border-radius: 20px;
+            background: rgba(255,255,255,0.92); color: var(--text-dark);
+        }
+
+        /* card body */
+        .pres-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
+        .pres-title { font-size: 1.12rem; font-weight: 700; margin-bottom: .4rem; }
+        .pres-desc { font-size: .88rem; color: var(--text-light); flex: 1; margin-bottom: 1rem; }
+
+        .pres-meta {
+            display: flex; align-items: center; gap: 14px;
+            font-size: .8rem; color: var(--text-light); margin-bottom: 1rem;
+        }
+        .pres-meta span { display: flex; align-items: center; gap: 5px; }
+        .pres-meta i { font-size: .85rem; }
+
+        .tech-tag {
+            background: var(--gradient-tertiary); color: white;
+            padding: 3px 11px; border-radius: 15px;
+            font-size: .75rem; font-weight: 500;
+        }
+        .pres-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.1rem; }
+
+        .pres-actions { display: flex; gap: 10px; }
+        .btn-view, .btn-download {
+            flex: 1; padding: 9px 0; border-radius: 50px; border: none;
+            font-size: .85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; text-align: center; display: inline-block;
+        }
+        .btn-view {
+            background: var(--gradient-primary); color: white;
+        }
+        .btn-view:hover {
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4); transform: translateY(-2px); color: white;
+        }
+        .btn-download {
+            background: white; color: var(--text-dark);
+            border: 2px solid #e9ecef;
+        }
+        .btn-download:hover {
+            border-color: #667eea; color: #667eea; transform: translateY(-2px);
+        }
+
+        /* ── Featured Card (wide) ── */
+        .pres-card.featured {
+            flex-direction: row;
+        }
+        .pres-card.featured .pres-thumb { width: 280px; height: auto; flex-shrink: 0; border-radius: 0; }
+        .pres-card.featured .pres-title { font-size: 1.3rem; }
+
+        /* ── Lightbox / Modal ── */
+        .modal-content { border-radius: 20px; border: none; overflow: hidden; }
+        .modal-header {
+            background: var(--gradient-primary); color: white; border: none; padding: 1.5rem 2rem;
+        }
+        .modal-header .btn-close { filter: invert(1); }
+        .modal-title { font-weight: 700; font-size: 1.2rem; }
+
+        .slide-viewer {
+            background: #1a1a2e; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 340px; position: relative; overflow: hidden;
+        }
+        .slide-frame {
+            width: 100%; aspect-ratio: 16/9;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .slide-preview-content {
+            width: 100%; height: 100%; position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 2rem; text-align: center;
+        }
+        .slide-preview-title {
+            font-size: 1.8rem; font-weight: 700; color: white; margin-bottom: .5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .slide-preview-sub { font-size: 1rem; color: rgba(255,255,255,0.75); }
+
+        .slide-controls {
+            display: flex; align-items: center; justify-content: center; gap: 20px; padding: 1rem 0 .5rem;
+        }
+        .slide-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            background: var(--gradient-primary); color: white;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+        }
+        .slide-btn:hover { transform: scale(1.1); box-shadow: 0 6px 18px rgba(102,126,234,0.45); }
+        .slide-btn:disabled { background: #ccc; box-shadow: none; cursor: default; transform: none; }
+        .slide-counter { font-weight: 600; color: var(--text-light); min-width: 70px; text-align: center; }
+
+        .slide-dots { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; padding-bottom: .5rem; }
+        .slide-dot {
+            width: 10px; height: 10px; border-radius: 50%; border: none; cursor: pointer;
+            background: #dee2e6; transition: all 0.3s ease;
+        }
+        .slide-dot.active { background: #667eea; transform: scale(1.3); }
+
+        /* ── Stats Strip ── */
+        .stats-strip {
+            background: var(--gradient-primary); color: white; padding: 50px 0;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-size: 2.8rem; font-weight: 800; display: block;
+            animation: countUp 1.5s ease-out forwards;
+        }
+        .stat-lbl { font-size: .9rem; opacity: .8; margin-top: 4px; }
+
+        /* ── Footer ── */
+        .footer { background: var(--text-dark); color: white; padding: 2rem 0; text-align: center; }
+        .social-links a {
+            color: white; font-size: 1.5rem; margin: 0 15px;
+            transition: all 0.3s ease; display: inline-block;
+        }
+        .social-links a:hover { color: #f093fb; transform: translateY(-3px); }
+
+        /* ── Animations ── */
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { opacity: 0; transform: translateY(35px); transition: opacity .6s ease, transform .6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Responsive ── */
+        @media (max-width: 767px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .pres-card.featured { flex-direction: column; }
+            .pres-card.featured .pres-thumb { width: 100%; height: 190px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Lalitha Hasini Prathipati</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
+                <li class="nav-item"><a class="nav-link active" href="Presentations.html">Presentations</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Banner -->
+<div class="page-hero">
+    <div class="container position-relative" style="z-index:2">
+        <h1><i class="fas fa-presentation-screen me-3"></i>Presentations</h1>
+        <p class="mt-2">Slide decks, talks, and conference materials I've put together</p>
+    </div>
+</div>
+
+<!-- Stats Strip -->
+<div class="stats-strip">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num" data-target="18">0</span>
+                <div class="stat-lbl">Presentations</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num" data-target="6">0</span>
+                <div class="stat-lbl">Conferences</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num" data-target="4">0</span>
+                <div class="stat-lbl">Categories</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num" data-target="2400">0</span>
+                <div class="stat-lbl">Total Downloads</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title animate-in">Slide Collections</h2>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar animate-in">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="tech">Tech &amp; Dev</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+            <button class="filter-btn" data-filter="business">Business</button>
+            <button class="filter-btn" data-filter="ai">AI &amp; ML</button>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="row g-4" id="presGrid">
+
+            <!-- Featured -->
+            <div class="col-12 animate-in pres-item" data-cat="tech">
+                <div class="pres-card featured"
+                     data-id="0"
+                     data-title="Building Scalable Web Applications"
+                     data-slides='["Intro: Scalable Web Apps","Architecture Overview","Load Balancing Strategies","Database Sharding","Caching Patterns","Microservices Design","Q&A"]'
+                     data-colors='["#667eea,#764ba2","#4facfe,#00f2fe","#43e97b,#38f9d7","#f093fb,#f5576c","#fa8231,#f7b731","#667eea,#764ba2","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-primary)"></div>
+                        <i class="fas fa-server slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">Tech &amp; Dev</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">Building Scalable Web Applications</div>
+                        <div class="pres-desc">A deep-dive into modern architecture patterns — load balancing, microservices, caching, and database sharding strategies for production systems handling millions of requests.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> March 2024</span>
+                            <span><i class="fas fa-users"></i> DevConf 2024</span>
+                            <span><i class="fas fa-download"></i> 342 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Postgres</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn">
+                                <i class="fas fa-play me-1"></i>View Slides
+                            </a>
+                            <a href="#" class="btn-download">
+                                <i class="fas fa-download me-1"></i>Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="ai">
+                <div class="pres-card"
+                     data-id="1"
+                     data-title="Intro to Machine Learning"
+                     data-slides='["What is ML?","Supervised Learning","Unsupervised Learning","Neural Networks","Training Tips","Demo","Wrap Up"]'
+                     data-colors='["#f093fb,#f5576c","#667eea,#764ba2","#4facfe,#00f2fe","#43e97b,#38f9d7","#fa8231,#f7b731","#f093fb,#f5576c","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-secondary)"></div>
+                        <i class="fas fa-brain slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">AI &amp; ML</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">Intro to Machine Learning</div>
+                        <div class="pres-desc">Beginner-friendly tour through core ML concepts — from supervised learning to neural networks — with real-world demos.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> Jan 2024</span>
+                            <span><i class="fas fa-download"></i> 518 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">scikit-learn</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="design">
+                <div class="pres-card"
+                     data-id="2"
+                     data-title="UI/UX Design Principles"
+                     data-slides='["Design Thinking","Typography Rules","Color Theory","Spacing & Grid","Accessibility","Prototyping","Handoff"]'
+                     data-colors='["#4facfe,#00f2fe","#f093fb,#f5576c","#43e97b,#38f9d7","#667eea,#764ba2","#fa8231,#f7b731","#4facfe,#00f2fe","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-tertiary)"></div>
+                        <i class="fas fa-palette slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">Design</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">UI/UX Design Principles</div>
+                        <div class="pres-desc">Practical design rules covering typography, color theory, spacing, accessibility, and developer handoff workflows.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> Nov 2023</span>
+                            <span><i class="fas fa-download"></i> 287 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">Figma</span>
+                            <span class="tech-tag">CSS</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="business">
+                <div class="pres-card"
+                     data-id="3"
+                     data-title="Startup Pitch Deck"
+                     data-slides='["Problem Statement","Our Solution","Market Size","Business Model","Traction","Team","Ask"]'
+                     data-colors='["#fa8231,#f7b731","#667eea,#764ba2","#4facfe,#00f2fe","#f093fb,#f5576c","#43e97b,#38f9d7","#fa8231,#f7b731","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-orange)"></div>
+                        <i class="fas fa-rocket slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">Business</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">Startup Pitch Deck</div>
+                        <div class="pres-desc">A clean, investor-ready pitch template covering problem, solution, market size, traction, team, and the ask.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> Sep 2023</span>
+                            <span><i class="fas fa-download"></i> 203 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">Strategy</span>
+                            <span class="tech-tag">Investor</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="tech">
+                <div class="pres-card"
+                     data-id="4"
+                     data-title="React Performance Optimization"
+                     data-slides='["Why Performance Matters","Profiling Tools","Memo & useMemo","Code Splitting","Lazy Loading","Virtualization","Benchmarks"]'
+                     data-colors='["#43e97b,#38f9d7","#667eea,#764ba2","#4facfe,#00f2fe","#f093fb,#f5576c","#fa8231,#f7b731","#43e97b,#38f9d7","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-green)"></div>
+                        <i class="fab fa-react slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">Tech &amp; Dev</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">React Performance Optimization</div>
+                        <div class="pres-desc">Techniques to squeeze more speed from React — memoization, code splitting, lazy loading, and list virtualization with real benchmarks.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> Jul 2023</span>
+                            <span><i class="fas fa-download"></i> 431 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Webpack</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="ai">
+                <div class="pres-card"
+                     data-id="5"
+                     data-title="Prompt Engineering Guide"
+                     data-slides='["What is Prompting?","Zero-Shot Techniques","Few-Shot Examples","Chain of Thought","RAG Basics","Fine-Tuning","Best Practices"]'
+                     data-colors='["#f093fb,#f5576c","#43e97b,#38f9d7","#667eea,#764ba2","#4facfe,#00f2fe","#fa8231,#f7b731","#f093fb,#f5576c","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-secondary)"></div>
+                        <i class="fas fa-wand-magic-sparkles slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">AI &amp; ML</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">Prompt Engineering Guide</div>
+                        <div class="pres-desc">Practical prompting patterns for LLMs — zero-shot, few-shot, chain-of-thought, RAG, and fine-tuning strategy.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> May 2024</span>
+                            <span><i class="fas fa-download"></i> 619 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">GPT-4</span>
+                            <span class="tech-tag">LangChain</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-6 col-lg-4 animate-in pres-item" data-cat="design">
+                <div class="pres-card"
+                     data-id="6"
+                     data-title="Design Systems at Scale"
+                     data-slides='["Why Design Systems?","Token Architecture","Component Library","Documentation","Versioning","Adoption","Metrics"]'
+                     data-colors='["#4facfe,#00f2fe","#f093fb,#f5576c","#fa8231,#f7b731","#43e97b,#38f9d7","#667eea,#764ba2","#4facfe,#00f2fe","#2c3e50,#4a6fa5"]'>
+                    <div class="pres-thumb">
+                        <div class="slide-bg" style="background: var(--gradient-tertiary)"></div>
+                        <i class="fas fa-layer-group slide-icon"></i>
+                        <span class="slide-count-badge"><i class="fas fa-clone me-1"></i>7 slides</span>
+                        <span class="category-badge">Design</span>
+                    </div>
+                    <div class="pres-body">
+                        <div class="pres-title">Design Systems at Scale</div>
+                        <div class="pres-desc">How to build, document, and maintain a design system that teams actually adopt — tokens, components, versioning, and metrics.</div>
+                        <div class="pres-meta">
+                            <span><i class="fas fa-calendar"></i> Feb 2024</span>
+                            <span><i class="fas fa-download"></i> 178 downloads</span>
+                        </div>
+                        <div class="pres-tags">
+                            <span class="tech-tag">Storybook</span>
+                            <span class="tech-tag">Figma</span>
+                        </div>
+                        <div class="pres-actions">
+                            <a href="#" class="btn-view view-pres-btn"><i class="fas fa-play me-1"></i>View</a>
+                            <a href="#" class="btn-download"><i class="fas fa-download me-1"></i>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /row -->
+    </div>
+</section>
+
+<!-- Slide Viewer Modal -->
+<div class="modal fade" id="presModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Presentation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+
+                <!-- Slide viewer -->
+                <div class="slide-viewer mb-3">
+                    <div class="slide-frame" id="slideFrame">
+                        <div class="slide-preview-content" id="slideContent">
+                            <div class="slide-preview-title" id="slideTitle"></div>
+                            <div class="slide-preview-sub" id="slideSub"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="slide-controls">
+                    <button class="slide-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <span class="slide-counter" id="slideCounter">1 / 7</span>
+                    <button class="slide-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="slide-dots" id="slideDots"></div>
+
+                <!-- Info row -->
+                <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+                    <div class="d-flex gap-2 flex-wrap" id="modalTags"></div>
+                    <a href="#" class="btn-download px-4" id="modalDownload" style="border-radius:50px; padding:8px 24px;">
+                        <i class="fas fa-download me-1"></i>Download PPT
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="social-links mb-3">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="SlideShare"><i class="fab fa-slideshare"></i></a>
+        </div>
+        <p class="mb-0">&copy; 2024 Portfolio. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── Scroll-reveal ──────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// ── Navbar scroll ──────────────────────────────────
+window.addEventListener('scroll', () => {
+    document.querySelector('.navbar').style.background =
+        window.scrollY > 50 ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.95)';
+});
+
+// ── Stat counter ──────────────────────────────────
+const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = +el.dataset.target;
+        let current = 0;
+        const step = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = current.toLocaleString();
+            if (current >= target) clearInterval(timer);
+        }, 25);
+        countObserver.unobserve(el);
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-num').forEach(el => countObserver.observe(el));
+
+// ── Filter ──────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('.pres-item').forEach(item => {
+            const match = filter === 'all' || item.dataset.cat === filter;
+            item.style.transition = 'opacity 0.3s, transform 0.3s';
+            if (match) {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+                item.style.display = '';
+            } else {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.95)';
+                setTimeout(() => { item.style.display = 'none'; }, 300);
+            }
+        });
+    });
+});
+
+// ── Slide Viewer ────────────────────────────────────
+let currentSlide = 0;
+let slides = [];
+let colors = [];
+
+function buildDots() {
+    const dotsEl = document.getElementById('slideDots');
+    dotsEl.innerHTML = '';
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'slide-dot' + (i === currentSlide ? ' active' : '');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsEl.appendChild(dot);
+    });
+}
+
+function updateSlide() {
+    const [c1, c2] = colors[currentSlide].split(',');
+    const content = document.getElementById('slideContent');
+    const frame = document.getElementById('slideFrame');
+
+    content.style.background = `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`;
+    document.getElementById('slideTitle').textContent = slides[currentSlide];
+    document.getElementById('slideSub').textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${slides.length}`;
+    document.getElementById('prevBtn').disabled = currentSlide === 0;
+    document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+
+    document.querySelectorAll('.slide-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+    });
+
+    // animate
+    frame.style.opacity = '0';
+    frame.style.transform = 'scale(0.96)';
+    requestAnimationFrame(() => {
+        frame.style.transition = 'opacity 0.3s, transform 0.3s';
+        frame.style.opacity = '1';
+        frame.style.transform = 'scale(1)';
+    });
+}
+
+function goToSlide(n) {
+    currentSlide = n;
+    updateSlide();
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentSlide > 0) goToSlide(currentSlide - 1);
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1);
+});
+
+// keyboard navigation inside modal
+document.addEventListener('keydown', e => {
+    if (!document.getElementById('presModal').classList.contains('show')) return;
+    if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+    if (e.key === 'ArrowLeft') document.getElementById('prevBtn').click();
+});
+
+// open modal
+document.querySelectorAll('.view-pres-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const card = this.closest('[data-id]');
+        slides = JSON.parse(card.dataset.slides);
+        colors = JSON.parse(card.dataset.colors);
+        currentSlide = 0;
+
+        document.getElementById('modalTitle').textContent = card.dataset.title;
+        buildDots();
+        updateSlide();
+
+        // tags from tech-tags inside card
+        const tagsEl = document.getElementById('modalTags');
+        tagsEl.innerHTML = '';
+        card.querySelectorAll('.tech-tag').forEach(t => {
+            tagsEl.innerHTML += `<span class="tech-tag">${t.textContent}</span>`;
+        });
+
+        new bootstrap.Modal(document.getElementById('presModal')).show();
+    });
+});
+
+// reset on close
+document.getElementById('presModal').addEventListener('hidden.bs.modal', () => {
+    document.getElementById('slideFrame').style.opacity = '1';
+    document.getElementById('slideFrame').style.transform = 'scale(1)';
+});
+</script>
+</body>
+</html>
